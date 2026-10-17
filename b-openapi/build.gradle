@@ -1,0 +1,10 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    implementation project(':b-service-interface')
+
+    implementation libs.springdoc.openapi.ui
+    implementation libs.spring.boot.starter.web
+}

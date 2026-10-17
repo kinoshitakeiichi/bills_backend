@@ -1,0 +1,8 @@
+rootProject.name = 'bill.backend'
+
+include "b-application"
+include "b-openapi"
+include "b-common"
+include "b-web-controller"
+include "b-service-interface"
+include "b-service-core"

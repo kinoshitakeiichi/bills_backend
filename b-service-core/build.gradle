@@ -1,0 +1,39 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    implementation project(':b-service-interface')
+
+    implementation libs.spring.boot.starter.web
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+
+    implementation libs.mybatis.plus.boot4.starter
+    implementation 'com.baomidou:mybatis-plus-jsqlparser:3.5.15'
+
+    implementation libs.jackson.databind
+    implementation libs.jackson.datatype.jsr310
+
+    implementation libs.mapstruct.core
+    annotationProcessor libs.mapstruct.processor
+
+    annotationProcessor(
+        'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+    )
+
+    api 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    testImplementation libs.spring.boot.starter.test
+}
+
+/*
+ * 标准 Java 插件本应自动把 main.output 加入 test classpath。
+ * 当前工程的测试编译未能解析本模块 main 中的类，因此这里显式声明，
+ * 防止根工程或其它统一配置覆盖默认 source set 行为。
+ */
+sourceSets {
+    test {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}

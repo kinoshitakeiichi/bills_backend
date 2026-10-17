@@ -1,0 +1,40 @@
+package com.jiajunxie.domain.loan;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+public record LoanScheduleItem(
+    String scheduleId,
+    String installmentPlanId,
+    String sourceTransactionId,
+    String loanAccountId,
+    int installmentNo,
+    int installmentCount,
+    String repaymentTypeCode,
+    BigDecimal systemPrincipalAmount,
+    BigDecimal systemInterestAmount,
+    BigDecimal systemFeeAmount,
+    BigDecimal effectivePrincipalAmount,
+    BigDecimal effectiveInterestAmount,
+    BigDecimal effectiveFeeAmount,
+    BigDecimal effectiveTotalAmount,
+    BigDecimal allocatedPrincipalAmount,
+    BigDecimal allocatedInterestAmount,
+    BigDecimal allocatedFeeAmount,
+    BigDecimal outstandingPrincipalAmount,
+    BigDecimal outstandingInterestAmount,
+    BigDecimal outstandingFeeAmount,
+    BigDecimal outstandingTotalAmount,
+    BigDecimal remainingPrincipalAfter,
+    BigDecimal annualRateSnapshot,
+    LocalDate rateEffectiveFrom,
+    LocalDate scheduledPaymentDate,
+    LocalDate calculatedPaymentDate,
+    LocalDate manualPaymentDate,
+    LocalDate effectivePaymentDate,
+    String storedStatusCode,
+    String displayStatusCode,
+    String adjustmentModeCode,
+    String calculationVersion,
+    int amountScale,
+    int generationNo) {}

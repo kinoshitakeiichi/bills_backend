@@ -1,0 +1,75 @@
+spring: 
+  application: 
+    name: bill.server
+
+  threads:
+    virtual:
+      enabled: true # 🌟 非常好，Java 25 充分利用虚拟线程提升并发
+
+  # Multi-module Gradle builds can replace jars/classes while bootRun is alive. DevTools restart
+  # may observe a half-written artifact and crash with EOF/ZLIB errors. Keep restart disabled by
+  # default and use the explicit container/backend restart workflow after code changes.
+  devtools:
+    restart:
+      enabled: ${SPRING_DEVTOOLS_RESTART_ENABLED:false}
+    add-properties: ${SPRING_DEVTOOLS_ADD_PROPERTIES:false}
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 30000
+
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update # 👈 唯一保留的 JPA 自动建表核心
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: bills 
+        format_sql: true
+        hbm2ddl:
+          create_namespaces: true
+          import_files_sql_extractor: org.hibernate.tool.schema.internal.script.MultiLineSqlScriptExtractor
+
+springdoc:
+  cache: 
+    disabled: true
+
+mybatis-plus:
+  mapper-locations: "classpath*:mapper/**/*.xml"
+  type-aliases-package: com.jiajunxie.**.entity
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  type-handlers-package: com.jiajunxie.handler
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.tool.schema: debug # 👈 保留：用于在控制台抓取 JPA 的建表文
+  pattern:
+    dateformat: "yyyy-MM-dd'T'HH:mm:ss.SSSXXX,Asia/Tokyo"
+
+# Bark Device Key 只通过环境变量注入，不写入数据库或前端配置。
+bark:
+  device-key: ${BARK_DEVICE_KEY:}
+
+# FX accounting cost basis is independent from Account.parentAccountId.
+# Existing FxPosition.costCurrency remains sticky; this default is used only when an independent
+# foreign-currency account receives its first ordinary inflow before any FX position exists.
+fx:
+  accounting-cost-currency: ${FX_ACCOUNTING_COST_CURRENCY:JPY}
+  inventory:
+    # V3-3B write logic is dormant until a cutover marker exists. Production remains fail-closed
+    # until the V3 read path/legacy retirement phase is ready for the same cutover.
+    apply-enabled: ${FX_INVENTORY_APPLY_ENABLED:false}

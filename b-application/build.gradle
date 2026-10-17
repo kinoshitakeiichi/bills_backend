@@ -1,0 +1,40 @@
+plugins {
+    alias(libs.plugins.spring.boot)
+}
+
+dependencies {
+    implementation project(':b-openapi')
+    implementation project(':b-web-controller')
+    implementation project(':b-service-core')
+
+    implementation libs.spring.boot.starter.web
+
+    runtimeOnly libs.postgresql.driver
+
+    // V44.3.1 migration bootstrap. Flyway is present but disabled by default
+    // until the live-schema baseline has been generated and verified.
+    //implementation 'org.flywaydb:flyway-core'
+    //runtimeOnly 'org.flywaydb:flyway-database-postgresql'
+
+    implementation 'org.springframework.boot:spring-boot-flyway'
+    runtimeOnly 'org.flywaydb:flyway-database-postgresql'
+
+    testImplementation libs.spring.boot.starter.test
+}
+
+bootRun {
+    sourceResources sourceSets.main
+
+    classpath += files(
+        rootProject.subprojects.collect {
+            "${it.layout.buildDirectory.get()}/classes/java/main"
+        }
+    )
+
+    // DevTools can restart while another Gradle invocation is atomically replacing a project jar.
+    // In a bind-mounted multi-module workspace that race has produced truncated-jar EOF/ZLIB
+    // failures. Set JVM system properties here so restart support is disabled before Spring starts.
+    systemProperty 'spring.devtools.restart.enabled', 'false'
+    systemProperty 'spring.devtools.add-properties', 'false'
+}
+

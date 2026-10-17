@@ -1,0 +1,13 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    api project(':b-common')
+
+    implementation libs.spring.boot.starter.web
+}
+
+dependencies {
+    testImplementation libs.spring.boot.starter.test
+}

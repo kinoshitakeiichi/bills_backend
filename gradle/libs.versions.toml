@@ -1,0 +1,38 @@
+[versions]
+# 2026年最新的 Spring Boot 4.1.x 主版本及其配套管理插件
+springBoot = "4.1.0"
+dependencyManagement = "1.1.7"
+# 完美适配 Spring Boot 4.1.x 和 Java 25 的最新 Springdoc 依赖
+springdoc = "3.0.3"
+
+mapstruct = "1.6.3" # 2026年最新完美支持 Java 21/25 的 MapStruct 版本
+lombok = "1.18.46"
+
+# 
+mybatisPlus = "3.5.15"  # 全面支持 Spring Boot 4 的成熟稳定版
+postgresql = "42.7.10"  # 现代高版本 PostgreSQL JDBC 驱动
+jackson = "2.18.2"
+
+[libraries]
+# 声明所需的各种最新依赖组件（完全不需要在子模块里写死版本）
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+springdoc-openapi-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
+
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
+mybatis-plus-boot4-starter = { module = "com.baomidou:mybatis-plus-spring-boot4-starter", version.ref = "mybatisPlus" }
+postgresql-driver = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
+
+mapstruct-core = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct" }
+mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct" }
+
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+
+[plugins]
+# 声明全局构建插件
+spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
+dependency-management = { id = "io.spring.dependency-management", version.ref = "dependencyManagement" }
+

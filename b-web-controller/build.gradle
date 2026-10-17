@@ -1,0 +1,15 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    implementation project(':b-common')
+    implementation project(':b-service-interface')
+
+    implementation libs.spring.boot.starter.web
+    implementation libs.spring.boot.starter.validation
+    implementation 'org.springframework:spring-tx'
+
+    implementation libs.mapstruct.core
+    annotationProcessor libs.mapstruct.processor
+}

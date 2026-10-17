@@ -1,0 +1,6 @@
+spring:
+  flyway:
+    enabled: false
+    locations: classpath:db/migration
+    default-schema: bills
+    schemas: bills

@@ -1,0 +1,40 @@
+package com.jiajunxie.vo;
+
+import java.math.BigDecimal;
+import java.time.Instant;
+
+public record AccountTransactionVo(
+    String transactionId,
+    String transactionType,
+    String transactionTypeName,
+    String categoryId,
+    String categoryName,
+    String merchant,
+    String remark,
+    Instant transactionTime,
+    BigDecimal amount,
+    String currency,
+    String entryRole,
+    String originCode,
+    String originReferenceId,
+    String fxDirectionCode,
+    String fxSourceAccountId,
+    String fxSourceAccountName,
+    BigDecimal fxSourceAmount,
+    String fxSourceCurrency,
+    String fxTargetAccountId,
+    String fxTargetAccountName,
+    BigDecimal fxTargetAmount,
+    String fxTargetCurrency,
+    BigDecimal fxExecutedRate,
+    BigDecimal fxFeeAmount,
+    String fxFeeCurrency,
+    BigDecimal fxCostBasisAmount,
+    BigDecimal fxRealizedGainLoss,
+    String fxGainLossCurrency,
+    BigDecimal loanPrincipalAmount,
+    BigDecimal loanInterestAmount,
+    BigDecimal loanFeeAmount,
+    BigDecimal loanTotalPaymentAmount,
+    String loanSourceAccountId,
+    String loanSourceAccountName) {}

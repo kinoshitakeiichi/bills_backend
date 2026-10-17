@@ -1,0 +1,53 @@
+spring:
+  datasource:
+    url: ${E2E_DATASOURCE_URL:jdbc:postgresql://database:5432/mydb_e2e}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
+  devtools:
+    restart:
+      enabled: false
+    add-properties: false
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    default-schema: bills
+    schemas: bills
+    create-schemas: true
+    baseline-on-migrate: true
+    baseline-version: "1"
+    baseline-description: pre-flyway-live-schema
+    validate-on-migrate: true
+    clean-disabled: true
+
+  jpa:
+    defer-datasource-initialization: false
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
+logging:
+  level:
+    org.hibernate.SQL: warn
+    org.hibernate.tool.schema: info
+
+
+# E2E must be deterministic: background jobs are unrelated to the test facts and
+# can create network noise or mutate scheduler state while destructive tests run.
+app:
+  scheduler:
+    reminder:
+      enabled: false
+    fx-alert:
+      enabled: false
+
+fx:
+  inventory:
+    apply-enabled: true

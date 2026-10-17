@@ -1,0 +1,1 @@
+package com.jiajunxie.request; import jakarta.validation.constraints.NotNull;import java.time.LocalDate;import lombok.Data; @Data public class CreditCardStatementGenerateRequest {@NotNull private LocalDate referenceDate;}
